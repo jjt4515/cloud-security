@@ -1,0 +1,12 @@
+route:
+  receiver: 'email-alert'
+receivers:
+  - name: 'email-alert'
+    email_configs:
+      - to: 'koreantaxi@naver.com'
+        from: 'koreantaxi@naver.com'
+        smarthost: 'smtp.naver.com:587'
+        auth_username: 'koreantaxi@naver.com'
+        auth_password: '${EMAIL_AUTH_PASSWORD}'
+    webhook_configs:
+      - url: 'http://webhook:5001/webhook'

@@ -8,6 +8,7 @@ services:
       - "9090:9090"
     volumes:
       - ./prometheus.yml:/etc/prometheus.yml
+      - ./alert-rules.yml:/etc/alert-rules.yml
     restart: unless-stopped
     command:
       - '--config.file=/etc/prometheus.yml'
@@ -53,6 +54,31 @@ services:
       - "8080:8080"
     depends_on:
       - prometheus
+    restart: unless-stopped
+
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: node-exporter
+    ports:
+      - "9100:9100"
+    restart: unless-stopped
+
+  alertmanager:
+    image: prom/alertmanager:latest
+    container_name: alertmanager
+    ports:
+      - "9093:9093"
+    volumes:
+      - ./alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml
+    environment:
+      - EMAIL_AUTH_PASSWORD=${EMAIL_AUTH_PASSWORD}
+    restart: unless-stopped
+
+
+  webhook:
+    build: ./webhook
+    ports:
+      - '5001:5001'
     restart: unless-stopped
 
 volumes:

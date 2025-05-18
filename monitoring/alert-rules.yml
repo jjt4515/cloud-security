@@ -1,0 +1,11 @@
+groups:
+  - name: high_traffic_alerts
+    rules:
+      - alert: HighTrafficDetected
+        expr: rate(http_requests_total[1m]) > 100
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "비정상 트래픽 발생"
+          description: "서버에 평소보다 많은 수신 트래픽이 탐지되었습니다."
