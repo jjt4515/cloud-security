@@ -3,6 +3,7 @@ import subprocess
 
 app = Flask(__name__)
 
+
 def run_security_commands():
     try:
         print("[INFO] UFW 방화벽 활성화 시도")
@@ -21,6 +22,7 @@ def run_security_commands():
     except Exception as e:
         print(f"[SECURITY COMMAND ERROR] {e}")
 
+
 @app.route("/webhook", methods=["POST"])
 def alert_handler():
     data = request.get_json()
@@ -38,6 +40,7 @@ def alert_handler():
         run_security_commands()
 
     return jsonify({"message": "Alerts processed"}), 200
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5001)

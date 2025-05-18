@@ -48,7 +48,8 @@ services:
     restart: unless-stopped
 
   spring-app:
-    image: spring-app:latest
+    build:
+      context: ../backend
     container_name: spring-app
     ports:
       - "8080:8080"
