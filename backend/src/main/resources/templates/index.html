@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>보안 이상 신고 게시판</title>
+</head>
+<body>
+<h2>보안 이슈 목록</h2>
+<a href="/write">새 글 작성</a>
+<hr>
+<ul>
+    <li th:each="post : ${posts}">
+        <strong th:text="${post.title}"></strong><br>
+        <p th:text="${post.content}"></p>
+        <small th:text="${post.createdAt}"></small>
+        <hr>
+    </li>
+</ul>
+</body>
+</html>
